@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/ZachIgarz/golangIpCom/application"
-	domainEntities "github.com/ZachIgarz/golangIpCom/domain/entities"
 	"github.com/ZachIgarz/golangIpCom/domain/ports"
 	"github.com/ZachIgarz/golangIpCom/infrastructure/restclients"
 
@@ -37,11 +36,7 @@ func routes() {
 	log.Fatal(http.ListenAndServe(":"+PORT, handler))
 }
 func getPurchasesUseCase() application.PurchasesUseCase {
-	return application.NewPurchasesApplication(getPurchasesClient(), getPurchasesList())
-}
-
-func getPurchasesList() []domainEntities.Purchases {
-	return []domainEntities.Purchases{}
+	return application.NewPurchasesApplication(getPurchasesClient())
 }
 
 func getPurchasesClient() ports.PurchasesClient {

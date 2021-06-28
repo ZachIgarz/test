@@ -1,9 +1,6 @@
 package application
 
 import (
-	"bytes"
-	"encoding/json"
-
 	domainEntities "github.com/ZachIgarz/golangIpCom/domain/entities"
 	"github.com/ZachIgarz/golangIpCom/domain/ports"
 	"github.com/ZachIgarz/golangIpCom/infrastructure/entities"
@@ -16,24 +13,21 @@ type PurchasesUseCase interface {
 
 //PurchasesApplication ...
 type PurchasesApplication struct {
-	purchaseClient  ports.PurchasesClient
-	purchasesEntity []domainEntities.Purchases
+	purchaseClient ports.PurchasesClient
 }
 
 //NewPurchasesApplication ....
-func NewPurchasesApplication(purchaseClient ports.PurchasesClient,
-	purchasesEntity []domainEntities.Purchases) *PurchasesApplication {
-
+func NewPurchasesApplication(purchaseClient ports.PurchasesClient) *PurchasesApplication {
 	return &PurchasesApplication{
-		purchaseClient:  purchaseClient,
-		purchasesEntity: purchasesEntity,
+		purchaseClient: purchaseClient,
 	}
 
 }
 
-/*Handler ...*/
+/*Handler manejador de la peticion */
 func (purchasesApplication *PurchasesApplication) Handler(purchaseResumeRequest entities.PurchaseResumeRequest) (statistics domainEntities.Statistics, err error) {
-	responsePurchaseClient, error := purchasesApplication.purchaseClient.Get(purchaseResumeRequest)
+
+	purchaseList, error := purchasesApplication.purchaseClient.Get(purchaseResumeRequest)
 
 	if error != nil {
 		err := error
@@ -41,17 +35,18 @@ func (purchasesApplication *PurchasesApplication) Handler(purchaseResumeRequest 
 		return statistics, err
 	}
 
-	dec := json.NewDecoder(bytes.NewReader(responsePurchaseClient))
-	dec.Decode(&purchasesApplication.purchasesEntity)
-
-	obtainStatistics(&statistics, purchasesApplication.purchasesEntity)
+	statistics.ComprasPorTDC = make(map[string]float64)
+	for _, purchase := range purchaseList {
+		obtainStatistics(&statistics, purchase)
+	}
 
 	return statistics, error
 }
 
-func obtainStatistics(statistics *domainEntities.Statistics, purchasesEntity []domainEntities.Purchases) {
-	statistics.GetTotalPurchases(purchasesEntity)
-	statistics.WithoutPurchases(purchasesEntity)
-	statistics.HighestPurchases(purchasesEntity)
-	statistics.PurchasesByCreditCards(purchasesEntity)
+/*obtainStatistics logica de las estadisticas de la consulta del api*/
+func obtainStatistics(statistics *domainEntities.Statistics, purchaseList []domainEntities.Purchases) {
+	statistics.GetTotalPurchases(purchaseList)
+	statistics.WithoutPurchases(purchaseList)
+	statistics.HighestPurchases(purchaseList)
+	statistics.PurchasesByCreditCards(purchaseList)
 }

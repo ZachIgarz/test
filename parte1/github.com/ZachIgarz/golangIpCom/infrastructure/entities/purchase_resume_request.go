@@ -3,11 +3,11 @@ package entities
 //PurchaseResumeRequest ...
 type PurchaseResumeRequest struct {
 	realDate string
-	days     int
+	days     string
 }
 
 //NewPurchaseResumeRequest ...
-func NewPurchaseResumeRequest(realDate string, days int) *PurchaseResumeRequest {
+func NewPurchaseResumeRequest(realDate string, days string) *PurchaseResumeRequest {
 	return &PurchaseResumeRequest{
 		realDate: realDate,
 		days:     days,
@@ -17,4 +17,8 @@ func NewPurchaseResumeRequest(realDate string, days int) *PurchaseResumeRequest 
 //RealDate ...
 func (purchase *PurchaseResumeRequest) RealDate() string {
 	return purchase.realDate
+}
+
+func (purchase *PurchaseResumeRequest) Days() string {
+	return purchase.days
 }

@@ -18,7 +18,7 @@ func (statistics *Statistics) GetTotalPurchases(purchaseList []Purchases) {
 			total = total + purchaseList[i].Monto
 		}
 	}
-	statistics.Total = roundFloat(total)
+	statistics.Total = statistics.Total + roundFloat(total)
 
 }
 
@@ -30,7 +30,7 @@ func (statistics *Statistics) WithoutPurchases(purchaseList []Purchases) {
 			total++
 		}
 	}
-	statistics.NoCompraron = total
+	statistics.NoCompraron = statistics.NoCompraron + total
 }
 
 //HighestPurchases the HIGHEST!!!!
@@ -42,7 +42,7 @@ func (statistics *Statistics) HighestPurchases(purchaseList []Purchases) {
 		}
 	}
 
-	statistics.CompraMasAlta = roundFloat(total)
+	statistics.CompraMasAlta = statistics.CompraMasAlta + roundFloat(total)
 }
 
 //PurchasesByCreditCards return map of puchases for every credit card
@@ -56,7 +56,10 @@ func (statistics *Statistics) PurchasesByCreditCards(purchaseList []Purchases) {
 			mapPurchases[key] = roundFloat(value)
 		}
 	}
-	statistics.ComprasPorTDC = mapPurchases
+
+	for key, value := range mapPurchases {
+		statistics.ComprasPorTDC[key] = statistics.ComprasPorTDC[key] + value
+	}
 }
 
 func roundFloat(purchaseList float64) float64 {

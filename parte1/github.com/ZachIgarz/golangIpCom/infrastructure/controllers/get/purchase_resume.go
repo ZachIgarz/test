@@ -11,15 +11,14 @@ import (
 
 /*PurchaseResume ... */
 type PurchaseResume struct {
-
-	purchasesUseCase      application.PurchasesUseCase
+	purchasesUseCase application.PurchasesUseCase
 }
 
 /*NewPurchaseResume ...*/
 func NewPurchaseResume(
 	purchasesUseCase application.PurchasesUseCase) *PurchaseResume {
 	return &PurchaseResume{
-		purchasesUseCase:      purchasesUseCase,
+		purchasesUseCase: purchasesUseCase,
 	}
 }
 
@@ -28,12 +27,11 @@ func (purchaseResume *PurchaseResume) Init(w http.ResponseWriter, r *http.Reques
 	path := r.URL.Path
 	date := strings.Split(path, "/")
 	realDate := date[2]
-	//dias := r.URL.Query().Get("dias")
+	dias := r.URL.Query().Get("dias")
 
-	purchaseResumeRequest := entities.NewPurchaseResumeRequest(realDate, 2)
+	purchaseResumeRequest := entities.NewPurchaseResumeRequest(realDate, dias)
 
 	statistics, error := purchaseResume.purchasesUseCase.Handler(*purchaseResumeRequest)
-
 
 	if error != nil {
 		http.Error(w, "an error has occurred trying to get the statistics ", http.StatusBadRequest)
