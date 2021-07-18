@@ -48,14 +48,8 @@ func main() {
 		}
 	}()
 
-	go verifyDomains()
-	service.NewExternalBilling()
 
-	ctx := context.Background()
-	err = service.NewServicePubSub(ctx)
-	if err != nil {
-		log.WithError(err).Fatal("could not start pub sub service")
-	}
+
 
 	quit := make(chan os.Signal)
 	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)
