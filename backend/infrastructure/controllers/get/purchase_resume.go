@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/ZachIgarz/golangIpCom/application"
-	"github.com/ZachIgarz/golangIpCom/infrastructure/entities"
+	"github.com/ZachIgarz/test-api-rest/application"
+	"github.com/ZachIgarz/test-api-rest/infrastructure/entities"
 )
 
 /*PurchaseResume ... */

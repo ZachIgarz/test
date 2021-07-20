@@ -1,9 +1,9 @@
 package application
 
 import (
-	domainEntities "github.com/ZachIgarz/golangIpCom/domain/entities"
-	"github.com/ZachIgarz/golangIpCom/domain/ports"
-	"github.com/ZachIgarz/golangIpCom/infrastructure/entities"
+	domainEntities "github.com/ZachIgarz/test-api-rest/domain/entities"
+	"github.com/ZachIgarz/test-api-rest/domain/ports"
+	"github.com/ZachIgarz/test-api-rest/infrastructure/entities"
 )
 
 //PurchasesUseCase ...

@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"time"
 
-	domainEntities "github.com/ZachIgarz/golangIpCom/domain/entities"
-	"github.com/ZachIgarz/golangIpCom/infrastructure/entities"
+	domainEntities "github.com/ZachIgarz/test-api-rest/domain/entities"
+	"github.com/ZachIgarz/test-api-rest/infrastructure/entities"
 )
 
 const purchaseURL = "https://apirecruit-gjvkhl2c6a-uc.a.run.app/compras/"
