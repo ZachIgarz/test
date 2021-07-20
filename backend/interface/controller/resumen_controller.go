@@ -1,34 +1,36 @@
 package controller
-package get
 
 import (
 	"encoding/json"
 	"net/http"
 	"strings"
 
-	"github.com/ZachIgarz/test-api-rest/application"
 	"github.com/ZachIgarz/test-api-rest/infrastructure/entities"
 )
 
-
-
 type purchaseResume struct {
-	purchasesUseCase interactor.Purchase
+	purchaseInteractor interactor.Purchase
 }
 
 type PurchaseController interface {
-	GetResumen(c Context) error
+	Resumen(c Context) error
 	//CreateUser(c Context) error
 }
 
-
-func NewPurchaseController(us interactor.UserInteractor) PurchaseController {
+func NewPurchaseController(purchaseInteractor interactor.Purchase) PurchaseController {
 	return &purchaseResume{
-
+		purchaseInteractor: purchaseInteractor,
 	}
 }
 
+func (purchaseResume *purchaseResume) Resumen(c Context) error {
 
+	date := c.Get("date")
+	days := c.Get("days")
+
+	//TODO: refactor this
+	return c.JSON(http.StatusOK, nil)
+}
 
 /*Init ...*/
 func (purchaseResume *PurchaseResume) Init(w http.ResponseWriter, r *http.Request) {
