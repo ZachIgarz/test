@@ -8,6 +8,8 @@ import (
 	"time"
 
 	"github.com/ZachIgarz/test-api-rest/config"
+	"github.com/ZachIgarz/test-api-rest/infrastructure/controllers/get"
+	"github.com/ansel1/merry"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
@@ -34,6 +36,8 @@ func main() {
 			log.Error("shutting down the server")
 		}
 	}()
+
+	router.HandleFunc("/resumen/{clave}", get.NewPurchaseResume(getPurchasesUseCase()).Init).Methods("GET")
 
 	quit := make(chan os.Signal)
 	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)

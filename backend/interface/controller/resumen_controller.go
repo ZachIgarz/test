@@ -26,6 +26,10 @@ func (purchaseResume *purchaseResume) Resumen(c Context) error {
 	date := c.Param("date")
 	days := c.Param("days")
 
+	if date == "" {
+		return merry.new
+	}
+
 	purchases, err := purchaseResume.purchaseInteractor.Purchases(date, days)
 	if err != nil {
 		return merry.Wrap(err)

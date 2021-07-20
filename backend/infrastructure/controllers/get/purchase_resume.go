@@ -15,8 +15,7 @@ type PurchaseResume struct {
 }
 
 /*NewPurchaseResume ...*/
-func NewPurchaseResume(
-	purchasesUseCase application.PurchasesUseCase) *PurchaseResume {
+func NewPurchaseResume(purchasesUseCase application.PurchasesUseCase) *PurchaseResume {
 	return &PurchaseResume{
 		purchasesUseCase: purchasesUseCase,
 	}
