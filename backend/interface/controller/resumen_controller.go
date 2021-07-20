@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/ZachIgarz/test-api-rest/usecase/interactor"
+	"github.com/ansel1/merry/v2"
 )
 
 type purchaseResume struct {
@@ -12,7 +13,6 @@ type purchaseResume struct {
 
 type PurchaseController interface {
 	Resumen(c Context) error
-	//CreateUser(c Context) error
 }
 
 func NewPurchaseController(purchaseInteractor interactor.Purchase) PurchaseController {
@@ -23,11 +23,16 @@ func NewPurchaseController(purchaseInteractor interactor.Purchase) PurchaseContr
 
 func (purchaseResume *purchaseResume) Resumen(c Context) error {
 
-	date := c.Get("date")
-	days := c.Get("days")
+	date := c.Param("date")
+	days := c.Param("days")
+
+	purchases, err := purchaseResume.purchaseInteractor.Purchases(date, days)
+	if err != nil {
+		return merry.Wrap(err)
+	}
 
 	//TODO: refactor this
-	return c.JSON(http.StatusOK, nil)
+	return c.JSON(http.StatusOK, purchases)
 }
 
 /*
