@@ -3,6 +3,7 @@ module github.com/ZachIgarz/test-api-rest
 go 1.16
 
 require (
+	github.com/ansel1/merry v1.6.1 // indirect
 	github.com/gorilla/mux v1.8.0
 	github.com/labstack/echo/v4 v4.4.0
 	github.com/labstack/gommon v0.3.0

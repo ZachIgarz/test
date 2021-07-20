@@ -1,11 +1,9 @@
 package controller
 
 import (
-	"encoding/json"
 	"net/http"
-	"strings"
 
-	"github.com/ZachIgarz/test-api-rest/infrastructure/entities"
+	"github.com/ZachIgarz/test-api-rest/usecase/interactor"
 )
 
 type purchaseResume struct {
@@ -32,7 +30,8 @@ func (purchaseResume *purchaseResume) Resumen(c Context) error {
 	return c.JSON(http.StatusOK, nil)
 }
 
-/*Init ...*/
+/*
+Init ...
 func (purchaseResume *PurchaseResume) Init(w http.ResponseWriter, r *http.Request) {
 	path := r.URL.Path
 	date := strings.Split(path, "/")
@@ -54,3 +53,4 @@ func (purchaseResume *PurchaseResume) Init(w http.ResponseWriter, r *http.Reques
 	json.NewEncoder(w).Encode(statistics)
 
 }
+*/
